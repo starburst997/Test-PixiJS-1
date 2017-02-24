@@ -1,0 +1,11 @@
+-lib pixijs
+-D generic
+-D enterframe
+-D webaudio
+#-D analyzer-optimize
+#-D analyzer
+-dce full
+#--no-traces
+-cp Source
+-js Server/js/Test-PixiJS-1.js
+-main Main
