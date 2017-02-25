@@ -38,6 +38,10 @@ class Main extends Application
   var sprite1:Sprite;
   var sprite2:Sprite;
   
+  // Textures
+  var texture1:Texture;
+  var texture2:Texture;
+  
   // Tiles
   var cv:CanvasElement;
   var texture:RenderTexture;
@@ -45,6 +49,9 @@ class Main extends Application
   
   // Flag to add tiles
   var addTiles:Bool = false;
+  
+  // Sprites
+  var sprites:Array<Sprite> = [];
   
   // Init
 	public function new() 
@@ -127,15 +134,21 @@ class Main extends Application
     stage.addChild( sprite3 );
     
     // Test adding a lot of sprite
-    var texture1 = new Texture(texture.baseTexture, new Rectangle(0, 0, 230, 230));
-    var texture2 = new Texture(texture.baseTexture, new Rectangle(0, 30, 230, 230));
+    this.texture1 = new Texture(texture.baseTexture, new Rectangle(0, 0, 30, 30));
+    this.texture2 = new Texture(texture.baseTexture, new Rectangle(0, 30, 30, 30));
     
     for ( i in 0...1200 )
     {
-      var sprite = new Sprite( Std.int(Math.random() * 2.0) == 0 ? texture1 : texture2 );
+      //var sprite = new Sprite( Std.int(Math.random() * 2.0) == 0 ? texture1 : texture2 );
+      //var sprite = new Sprite( this.texture1 );
+      
+      var sprite = new Sprite( new Texture(texture.baseTexture, new Rectangle(0, 0, 30, 30)) );
+      
       sprite.position.set( Math.random() * width, Math.random() * height );
       
       stage.addChild( sprite );
+      
+      sprites.push( sprite );
     }
     
     // Test adding new tile inside texture after a little while
@@ -180,9 +193,15 @@ class Main extends Application
   {
     if ( addTiles )
     {
-      for ( child in stage.children )
+      for ( sprite in sprites )
       {
-        child.position.set( Math.random() * width, Math.random() * height );
+        //sprite.texture = Std.int(Math.random() * 2) == 0 ? texture1 : texture2;
+        //sprite.texture.frame.y = Std.int(Math.random() * 2) == 0 ? 0 : 30;
+        
+        sprite.texture.frame = Std.int(Math.random() * 2) == 0 ? new Rectangle(0, 0, 30, 30) : new Rectangle(0, 30, 30, 30);
+        
+        //trace(sprite.texture.frame.y);
+        //child.position.set( Math.random() * width, Math.random() * height );
       }
     }
 	}
